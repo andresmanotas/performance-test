@@ -15,4 +15,8 @@ const Home = () => (
   </>
 );
 
+Home.getInitialProps = ({
+  req,
+}) => req.client;
+
 export default Home;

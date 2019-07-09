@@ -24,6 +24,7 @@ const HealthCard = ({
               aria-hidden="true"
               imageURL={image}
               className="TempoCategoryTile-img"
+              sizes={['450']}
               style={{
                 position: 'absolute',
                 width: '100%',

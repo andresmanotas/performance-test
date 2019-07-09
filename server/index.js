@@ -1,6 +1,7 @@
 const express = require('express');
 const next = require('next');
 const compression = require('compression');
+const useragent = require('express-useragent');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -12,6 +13,16 @@ app.prepare()
     const server = express();
 
     server.use(compression());
+    server.use((req, res, nextIn) => {
+      const source = req.headers['user-agent'];
+      const userAgent = useragent.parse(source);
+      req.client = {
+        isMobile: userAgent.isMobile,
+        isTablet: userAgent.isTablet,
+      };
+
+      nextIn();
+    });
 
     server.get('*', (req, res) => handle(req, res));
 
